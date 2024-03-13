@@ -1,8 +1,8 @@
 const express=require("express")
 const router=express.Router()
-
+const jwtmidalware=require("../Midalware/jwtValidate")
 const CategoryModels = require("../Models/CategoryModels")
-router.post("/Ajoutercategory",async(req,res)=>{
+router.post("/Ajoutercategory",jwtmidalware,async(req,res)=>{
     try {
         const existeCategry = await CategoryModels.findOne({nom: req.body.nom}) 
         if (existeCategry) {return res.status(400).json('Cette catégorie existe déja')}
